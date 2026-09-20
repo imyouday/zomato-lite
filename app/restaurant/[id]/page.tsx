@@ -18,6 +18,7 @@ type RestaurantData = {
   name: string;
   cuisine: string;
   area: string;
+  image: string;
   averageRating: number | null;
   totalReviews: number;
   latestReview: Review | null;
@@ -127,8 +128,8 @@ export default function RestaurantPage() {
       <div className="relative">
         <div className="relative h-48 w-full overflow-hidden rounded-2xl">
           <Image
-            src="/burrito.jpg"
-            alt={`Burritos at ${data.name}`}
+            src={data.image}
+            alt={`Food at ${data.name}`}
             fill
             priority
             sizes="(max-width: 640px) 100vw, 560px"

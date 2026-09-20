@@ -38,8 +38,8 @@ export default function RootLayout({
               </span>
             </Link>
             <nav className="flex items-center gap-4 text-sm font-medium text-[#4F4F4F]">
-              <Link href="/restaurant/1" className="transition-colors hover:text-[#E23744]">
-                Restaurant
+              <Link href="/" className="transition-colors hover:text-[#E23744]">
+                Restaurants
               </Link>
               <Link
                 href="/review/1"
