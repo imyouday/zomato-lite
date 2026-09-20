@@ -3,13 +3,6 @@ import { query } from "@/lib/db";
 
 export const dynamic = "force-dynamic";
 
-const formatter = new Intl.DateTimeFormat(undefined, {
-  day: "numeric",
-  month: "short",
-  hour: "numeric",
-  minute: "2-digit",
-});
-
 export async function GET(
   _req: Request,
   { params }: { params: Promise<{ id: string }> }
@@ -53,9 +46,7 @@ export async function GET(
           id: rows[0].id,
           rating: rows[0].rating,
           comment: rows[0].comment,
-          createdAt: formatter.format(
-            new Date(rows[0].created_at as string)
-          ),
+          createdAt: new Date(rows[0].created_at as string).toISOString(),
         }
       : null;
 
@@ -63,7 +54,7 @@ export async function GET(
     id: r.id,
     rating: r.rating,
     comment: r.comment,
-    createdAt: formatter.format(new Date(r.created_at as string)),
+    createdAt: new Date(r.created_at as string).toISOString(),
   }));
 
   return NextResponse.json({
