@@ -4,12 +4,19 @@ import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { StarPicker } from "@/components/star-picker";
+import { Pin, ForkKnife, ChevronRight } from "@/components/icons";
+
+type RestaurantMeta = {
+  name: string;
+  cuisine: string;
+  area: string;
+};
 
 export default function ReviewPage() {
   const { restaurantId } = useParams<{ restaurantId: string }>();
   const router = useRouter();
 
-  const [name, setName] = useState("");
+  const [meta, setMeta] = useState<RestaurantMeta | null>(null);
   const [rating, setRating] = useState<number | null>(null);
   const [comment, setComment] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -18,7 +25,15 @@ export default function ReviewPage() {
   useEffect(() => {
     fetch(`/api/restaurants/${restaurantId}`)
       .then((res) => (res.ok ? res.json() : null))
-      .then((data) => data && setName(data.name))
+      .then((data) => {
+        if (data) {
+          setMeta({
+            name: data.name,
+            cuisine: data.cuisine,
+            area: data.area,
+          });
+        }
+      })
       .catch(() => {});
   }, [restaurantId]);
 
@@ -56,19 +71,36 @@ export default function ReviewPage() {
   }
 
   return (
-    <main className="mx-auto flex min-h-screen w-full max-w-[560px] flex-col px-6 py-10">
-      <Link
-        href="/"
-        className="self-start text-sm text-[#828282] transition-colors hover:text-[#1C1C1C]"
-      >
-        ← Zomato Lite
-      </Link>
+    <main className="mx-auto flex min-h-screen w-full max-w-[560px] flex-col px-4 py-4 sm:px-6">
+      <nav className="flex items-center gap-1 text-sm text-[#828282]">
+        <Link href="/" className="transition-colors hover:text-[#1C1C1C]">
+          Home
+        </Link>
+        <ChevronRight className="h-3.5 w-3.5 text-[#B8B8B8]" />
+        <Link
+          href={`/restaurant/${restaurantId}`}
+          className="transition-colors hover:text-[#1C1C1C]"
+        >
+          Restaurant
+        </Link>
+        <ChevronRight className="h-3.5 w-3.5 text-[#B8B8B8]" />
+        <span className="truncate text-[#1C1C1C]">Write review</span>
+      </nav>
 
       <div className="mb-8">
         <p className="text-sm text-[#828282]">Reviewing</p>
         <h1 className="mt-1 text-2xl font-semibold tracking-tight text-[#1C1C1C]">
-          {name || "Loading…"}
+          {meta ? meta.name : "Loading…"}
         </h1>
+        {meta && (
+          <p className="mt-1 flex items-center gap-2 text-sm text-[#4F4F4F]">
+            <ForkKnife className="h-3.5 w-3.5 text-[#E23744]" />
+            {meta.cuisine}
+            <span className="text-[#B8B8B8]">·</span>
+            <Pin className="h-3.5 w-3.5 text-[#E23744]" />
+            {meta.area}
+          </p>
+        )}
       </div>
 
       <form
