@@ -4,7 +4,7 @@ export function Star({ filled }: { filled: boolean }) {
       viewBox="0 0 20 20"
       aria-hidden="true"
       className={`h-5 w-5 ${
-        filled ? "fill-amber-500" : "fill-stone-200"
+        filled ? "fill-[#E23744]" : "fill-[#EBEBEB]"
       }`}
     >
       <path d="M10 1.5l2.6 5.27 5.82.85-4.21 4.1.99 5.79L10 14.77l-5.2 2.74.99-5.79-4.21-4.1 5.82-.85L10 1.5z" />
@@ -28,7 +28,7 @@ export function RatingStars({
           viewBox="0 0 20 20"
           aria-hidden="true"
           className={`${dim} ${
-            i <= rating ? "fill-amber-500" : "fill-stone-200"
+            i <= rating ? "fill-[#E23744]" : "fill-[#EBEBEB]"
           }`}
         >
           <path d="M10 1.5l2.6 5.27 5.82.85-4.21 4.1.99 5.79L10 14.77l-5.2 2.74.99-5.79-4.21-4.1 5.82-.85L10 1.5z" />

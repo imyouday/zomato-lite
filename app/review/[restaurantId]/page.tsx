@@ -59,24 +59,24 @@ export default function ReviewPage() {
     <main className="mx-auto flex min-h-screen w-full max-w-[560px] flex-col px-6 py-10">
       <Link
         href="/"
-        className="text-sm text-stone-500 hover:text-stone-800 transition-colors self-start mb-10"
+        className="self-start text-sm text-[#828282] transition-colors hover:text-[#1C1C1C]"
       >
         ← Zomato Lite
       </Link>
 
       <div className="mb-8">
-        <p className="text-sm text-stone-500">Reviewing</p>
-        <h1 className="mt-1 text-2xl font-semibold tracking-tight text-stone-900">
+        <p className="text-sm text-[#828282]">Reviewing</p>
+        <h1 className="mt-1 text-2xl font-semibold tracking-tight text-[#1C1C1C]">
           {name || "Loading…"}
         </h1>
       </div>
 
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col gap-6 rounded-2xl border border-stone-200 bg-white p-6"
+        className="flex flex-col gap-6 rounded-2xl border border-[#EBEBEB] bg-white p-6"
       >
         <div>
-          <label className="text-sm font-medium text-stone-700">
+          <label className="text-sm font-medium text-[#4F4F4F]">
             Your rating
           </label>
           <div className="mt-2">
@@ -85,7 +85,7 @@ export default function ReviewPage() {
         </div>
 
         <div>
-          <label htmlFor="comment" className="text-sm font-medium text-stone-700">
+          <label htmlFor="comment" className="text-sm font-medium text-[#4F4F4F]">
             Your review
           </label>
           <textarea
@@ -95,12 +95,12 @@ export default function ReviewPage() {
             rows={4}
             maxLength={500}
             placeholder="How was the food?"
-            className="mt-2 w-full resize-none rounded-xl border border-stone-200 bg-stone-50 px-3 py-2.5 text-stone-900 placeholder:text-stone-400 focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/30"
+            className="mt-2 w-full resize-none rounded-xl border border-[#EBEBEB] bg-[#FAFAFA] px-3 py-2.5 text-[#1C1C1C] placeholder:text-[#B8B8B8] focus:border-[#E23744] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#E23744]/30"
           />
         </div>
 
         {error && (
-          <p className="rounded-xl bg-red-50 px-4 py-3 text-sm text-red-700">
+          <p className="rounded-xl bg-[#FDECEC] px-4 py-3 text-sm text-[#C02432]">
             {error}
           </p>
         )}
@@ -108,7 +108,7 @@ export default function ReviewPage() {
         <button
           type="submit"
           disabled={!canSubmit}
-          className="rounded-xl bg-amber-600 px-5 py-3 font-medium text-white transition-colors hover:bg-amber-700 disabled:cursor-not-allowed disabled:bg-stone-200 disabled:text-stone-400"
+          className="rounded-xl bg-[#E23744] px-5 py-3 font-medium text-white transition-colors hover:bg-[#C02432] disabled:cursor-not-allowed disabled:bg-[#EBEBEB] disabled:text-[#B8B8B8]"
         >
           {submitting ? "Submitting…" : "Submit review"}
         </button>

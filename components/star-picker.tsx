@@ -24,7 +24,7 @@ export function StarPicker({
             role="radio"
             aria-checked={value === i}
             aria-label={label}
-            className="cursor-pointer rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500"
+            className="cursor-pointer rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-[#E23744]"
             onMouseEnter={() => setHover(i)}
             onMouseLeave={() => setHover(0)}
             onClick={() => {

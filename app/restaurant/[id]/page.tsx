@@ -43,10 +43,10 @@ export default function RestaurantPage() {
   if (notFound) {
     return (
       <main className="mx-auto flex min-h-screen w-full max-w-[560px] flex-col items-start px-6 py-10">
-        <p className="text-lg text-stone-700">
+        <p className="text-lg text-[#4F4F4F]">
           That restaurant doesn&apos;t exist yet.
         </p>
-        <Link href="/" className="mt-6 text-sm text-amber-700 hover:underline">
+        <Link href="/" className="mt-6 text-sm text-[#E23744] hover:underline">
           ← Back to home
         </Link>
       </main>
@@ -56,7 +56,7 @@ export default function RestaurantPage() {
   if (!data) {
     return (
       <main className="mx-auto flex min-h-screen w-full max-w-[560px] px-6 py-10">
-        <p className="text-stone-500">Loading…</p>
+        <p className="text-[#828282]">Loading…</p>
       </main>
     );
   }
@@ -65,16 +65,16 @@ export default function RestaurantPage() {
     <main className="mx-auto flex min-h-screen w-full max-w-[560px] flex-col px-6 py-10">
       <Link
         href="/"
-        className="text-sm text-stone-500 hover:text-stone-800 transition-colors self-start"
+        className="self-start text-sm text-[#828282] transition-colors hover:text-[#1C1C1C]"
       >
         ← Zomato Lite
       </Link>
 
       <header className="mt-10">
-        <div className="text-xs font-medium uppercase tracking-widest text-amber-700">
+        <div className="text-xs font-medium uppercase tracking-widest text-[#E23744]">
           {data.cuisine} · {data.area}
         </div>
-        <h1 className="mt-2 text-3xl font-semibold tracking-tight text-stone-900">
+        <h1 className="mt-2 text-3xl font-semibold tracking-tight text-[#1C1C1C]">
           {data.name}
         </h1>
       </header>
@@ -82,11 +82,11 @@ export default function RestaurantPage() {
       <div className="mt-8 flex items-end gap-3">
         <span
           aria-label="Average rating"
-          className="text-6xl font-semibold leading-none tracking-tight text-stone-900"
+          className="text-6xl font-semibold leading-none tracking-tight text-[#1C1C1C]"
         >
           {formatRating(data.averageRating)}
         </span>
-        <span className="pb-1 text-sm text-stone-500">
+        <span className="pb-1 text-sm text-[#828282]">
           {data.totalReviews === 1
             ? "1 review"
             : `${data.totalReviews} reviews`}
@@ -96,46 +96,46 @@ export default function RestaurantPage() {
       {data.latestReview ? (
         <section
           aria-label="Latest review"
-          className="mt-8 rounded-2xl border border-amber-300/70 bg-amber-50 p-6"
+          className="mt-8 rounded-2xl border border-[#FFD6D9] bg-[#FFF1F2] p-6"
         >
           <div className="flex items-center justify-between gap-2">
             <RatingStars rating={data.latestReview.rating} size="md" />
-            <span className="text-xs text-amber-800/70">
+            <span className="text-xs text-[#C02432]/80">
               {data.latestReview.createdAt}
             </span>
           </div>
-          <p className="mt-3 leading-relaxed text-stone-800">
+          <p className="mt-3 leading-relaxed text-[#4F4F4F]">
             “{data.latestReview.comment}”
           </p>
-          <p className="mt-3 text-xs font-medium uppercase tracking-wide text-amber-700">
+          <p className="mt-3 text-xs font-medium uppercase tracking-wide text-[#E23744]">
             Latest review
           </p>
         </section>
       ) : (
-        <section className="mt-8 rounded-2xl border border-stone-200 bg-white p-8 text-center">
-          <p className="text-stone-700">No reviews yet.</p>
-          <p className="mt-1 text-sm text-stone-500">
+        <section className="mt-8 rounded-2xl border border-[#EBEBEB] bg-white p-8 text-center">
+          <p className="text-[#4F4F4F]">No reviews yet.</p>
+          <p className="mt-1 text-sm text-[#828282]">
             Be the first to tell the world about {data.name}.
           </p>
         </section>
       )}
 
       <div className="mt-10">
-        <h2 className="text-sm font-medium text-stone-500">All reviews</h2>
-        <ul className="mt-4 divide-y divide-stone-200 border-t border-stone-200">
+        <h2 className="text-sm font-medium text-[#828282]">All reviews</h2>
+        <ul className="mt-4 divide-y divide-[#EBEBEB] border-t border-[#EBEBEB]">
           {data.reviews.map((r) => (
             <li key={r.id} className="py-4">
               <div className="flex items-center justify-between gap-2">
                 <RatingStars rating={r.rating} />
-                <span className="text-xs text-stone-400">{r.createdAt}</span>
+                <span className="text-xs text-[#B8B8B8]">{r.createdAt}</span>
               </div>
-              <p className="mt-2 text-sm leading-relaxed text-stone-700">
+              <p className="mt-2 text-sm leading-relaxed text-[#4F4F4F]">
                 {r.comment}
               </p>
             </li>
           ))}
           {data.totalReviews === 0 && (
-            <li className="py-4 text-sm text-stone-400">
+            <li className="py-4 text-sm text-[#B8B8B8]">
               Nothing here yet.
             </li>
           )}
@@ -144,7 +144,7 @@ export default function RestaurantPage() {
 
       <Link
         href={`/review/${id}`}
-        className="mt-10 rounded-xl bg-amber-600 px-5 py-3 text-center font-medium text-white transition-colors hover:bg-amber-700"
+        className="mt-10 rounded-xl bg-[#E23744] px-5 py-3 text-center font-medium text-white transition-colors hover:bg-[#C02432]"
       >
         Write a review
       </Link>
