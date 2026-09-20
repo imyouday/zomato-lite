@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { pool } from "@/lib/db";
+import { query } from "@/lib/db";
 
 export const dynamic = "force-dynamic";
 
@@ -37,10 +37,19 @@ export async function POST(req: Request) {
     );
   }
 
-  const restaurant = await pool.query(
-    "SELECT id FROM restaurants WHERE id = $1",
-    [restaurantId]
-  );
+  if (
+    !Number.isInteger(restaurantId) ||
+    (restaurantId as number) < 1
+  ) {
+    return NextResponse.json(
+      { error: "restaurantId must be a whole number." },
+      { status: 400 }
+    );
+  }
+
+  const restaurant = await query("SELECT id FROM restaurants WHERE id = $1", [
+    restaurantId,
+  ]);
 
   if (restaurant.rowCount === 0) {
     return NextResponse.json(
@@ -49,7 +58,7 @@ export async function POST(req: Request) {
     );
   }
 
-  const insert = await pool.query(
+  const insert = await query(
     "INSERT INTO reviews (restaurant_id, rating, comment) VALUES ($1, $2, $3) RETURNING id",
     [restaurantId, rating, comment.trim()]
   );

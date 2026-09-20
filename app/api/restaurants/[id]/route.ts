@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { pool } from "@/lib/db";
+import { query } from "@/lib/db";
 
 export const dynamic = "force-dynamic";
 
@@ -24,18 +24,16 @@ export async function GET(
     );
   }
 
-  const { rows: restaurants } = await pool.query(
+  const restaurant = await query(
     "SELECT id, name, cuisine, area FROM restaurants WHERE id = $1",
     [id]
   );
 
-  if (restaurants.length === 0) {
+  if (restaurant.rowCount === 0) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
 
-  const restaurant = restaurants[0];
-
-  const { rows } = await pool.query(
+  const reviews = await query(
     `SELECT id, rating, comment, created_at,
             round(AVG(rating) OVER ()::numeric, 1)::float AS average_rating,
             COUNT(*) OVER ()::int AS total_reviews
@@ -45,6 +43,7 @@ export async function GET(
     [id]
   );
 
+  const rows = reviews.rows;
   const averageRating = rows.length > 0 ? rows[0].average_rating : null;
   const totalReviews = rows.length > 0 ? rows[0].total_reviews : 0;
 
@@ -54,7 +53,9 @@ export async function GET(
           id: rows[0].id,
           rating: rows[0].rating,
           comment: rows[0].comment,
-          createdAt: formatter.format(new Date(rows[0].created_at)),
+          createdAt: formatter.format(
+            new Date(rows[0].created_at as string)
+          ),
         }
       : null;
 
@@ -62,13 +63,13 @@ export async function GET(
     id: r.id,
     rating: r.rating,
     comment: r.comment,
-    createdAt: formatter.format(new Date(r.created_at)),
+    createdAt: formatter.format(new Date(r.created_at as string)),
   }));
 
   return NextResponse.json({
-    name: restaurant.name,
-    cuisine: restaurant.cuisine,
-    area: restaurant.area,
+    name: restaurant.rows[0].name,
+    cuisine: restaurant.rows[0].cuisine,
+    area: restaurant.rows[0].area,
     averageRating,
     totalReviews,
     latestReview,
