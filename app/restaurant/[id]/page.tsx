@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
-import { HeroArt } from "@/components/hero-art";
+import Image from "next/image";
 import { RatingPill, ratingLabel } from "@/components/rating-pill";
 import { Pin, ForkKnife, Share, StarFilled } from "@/components/icons";
 
@@ -125,11 +125,21 @@ export default function RestaurantPage() {
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-[560px] flex-col px-4 py-4 sm:px-6">
       <div className="relative">
-        <HeroArt className="h-48 w-full rounded-2xl" />
+        <div className="relative h-48 w-full overflow-hidden rounded-2xl">
+          <Image
+            src="/burrito.jpg"
+            alt={`Burritos at ${data.name}`}
+            fill
+            priority
+            sizes="(max-width: 640px) 100vw, 560px"
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
+        </div>
         <button
           type="button"
           onClick={shareRestaurant}
-          className="absolute right-3 top-3 flex items-center gap-1.5 rounded-full bg-white/90 px-3 py-1.5 text-sm font-medium text-[#1C1C1C] backdrop-blur transition-colors hover:bg-white"
+          className="absolute right-3 top-3 flex items-center gap-1.5 rounded-full bg-white/90 px-3 py-1.5 text-sm font-medium text-[#1C1C1C] shadow-sm backdrop-blur transition-colors hover:bg-white"
         >
           <Share className="h-3.5 w-3.5" />
           {copied ? "Copied" : "Share"}

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { HeroArt } from "@/components/hero-art";
+import Image from "next/image";
 import { RatingPill, ratingLabel } from "@/components/rating-pill";
 import { Pin, ForkKnife, ChevronRight } from "@/components/icons";
 
@@ -44,7 +44,17 @@ export default function Home() {
         className="block overflow-hidden rounded-2xl border border-[#EBEBEB] bg-white transition-shadow hover:shadow-md"
       >
         <div className="relative">
-          <HeroArt className="h-44 w-full" />
+          <div className="relative h-44 w-full overflow-hidden">
+            <Image
+              src="/burrito.jpg"
+              alt="Baked chicken burritos"
+              fill
+              priority
+              sizes="(max-width: 640px) 100vw, 560px"
+              className="object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent" />
+          </div>
           {data?.averageRating !== null && data?.averageRating !== undefined && (
             <div className="absolute right-3 top-3">
               <RatingPill value={data.averageRating} />
