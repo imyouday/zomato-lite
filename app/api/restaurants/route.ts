@@ -15,7 +15,17 @@ export async function GET() {
   );
 
   return NextResponse.json(
-    { restaurants: result.rows },
+    {
+      restaurants: result.rows.map((r) => ({
+        id: r.id,
+        name: r.name,
+        cuisine: r.cuisine,
+        area: r.area,
+        image: r.image,
+        averageRating: r.average_rating as number | null,
+        totalReviews: r.total_reviews as number,
+      })),
+    },
     { status: 200 }
   );
 }
